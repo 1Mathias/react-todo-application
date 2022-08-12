@@ -66,6 +66,15 @@ function handleInput(event){
 function deleteTodo(id){
   setTodos([...todos].filter(todo=>todo.id!==id))
 }
+function completeTodo(id) {
+  const updateTodos=todos.map(todo=>{
+    if(todo.id===id){
+      todo.isComplete=!todo.isComplete;
+    }
+    return todo;
+  });
+  setTodos(updateTodos);
+}
 
   return (
     <div className="todo-app-container">
@@ -84,8 +93,8 @@ function deleteTodo(id){
           {todos.map((todo,index)=> (
           <li key={todo.id} className="todo-item-container" > 
             <div className="todo-item">
-              <input type="checkbox" />
-              <span className="todo-item-label">{todo.title}</span>
+              <input type="checkbox" onChange={()=>completeTodo(todo.id)}/>
+              <span className={`todo-item-label ${todo.isComplete? 'line-through' : ''}`}>{todo.title}</span>
             </div>
             <button onClick={()=>deleteTodo(todo.id)} className="x-button">
               <svg

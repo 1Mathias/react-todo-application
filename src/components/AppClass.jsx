@@ -38,6 +38,9 @@ export default class AppClass extends Component{
           ]
         })
       } 
+      completeTodo(id) {
+        
+      }
     render(){
        
         return(
@@ -56,7 +59,7 @@ export default class AppClass extends Component{
           <li className="todo-item-container">
             <div className="todo-item">
               <input type="checkbox" />
-              <span className="todo-item-label">{todo.title}</span>
+              <span className={`todo-item-label ${todo.isComplete? 'line-through' : ''}`}>{todo.title}</span>
             </div>
             <button className="x-button">
               <svg
