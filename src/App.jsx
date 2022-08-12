@@ -2,26 +2,27 @@ import { useState } from "react";
 import logo from "./logo.svg";
 import Another from "./Another";
 import "./App.css";
-//import './reset.css';
+// import './reset.css';
 
 
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
 
-  const someStyle = {
-    //background:'blue',
-    color: "white",
-    fontSize: "28px",
-    fontWeight: "bold",
-  };
+  // const someStyle = {
+  //   //background:'blue',
+  //   color: "white",
+  //   fontSize: "28px",
+  //   fontWeight: "bold",
+  // };
 
-  function decrement() {
-    setCount(count - 1);
-  }
+  // function decrement() {
+  //   setCount(count - 1);
+  // }
 
-  function increment() {
-    setCount(count + 1);
-  }
+  // function increment() {
+  //   setCount(count + 1);
+  // }
+
 
   const [todos, setTodos] = useState([
     {
@@ -41,25 +42,52 @@ function App() {
     },
   ]);
 
+  function addTodo(event){
+    event.preventDefault();
+
+    if(todoInput.trim().length===0){
+      return;
+    }
+    setTodos([...todos,{
+      id:idForTodo,
+      title:todoInput,
+      isComplete:false,
+    }]);
+    setTodoInput('');
+    setIdForTodo(prevIdForTodo=>prevIdForTodo+1);
+  }
   
+const[todoInput,setTodoInput]=useState('');
+const [idForTodo,setIdForTodo]=useState(4);
+
+function handleInput(event){
+  setTodoInput(event.target.value);
+}
+function deleteTodo(id){
+  setTodos([...todos].filter(todo=>todo.id!==id))
+}
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
         <h2>Todo App</h2>
-        <form action="#">
+        <form action="#" onSubmit={addTodo}>
           <input
             type="text"
+            value={todoInput}
+            onChange={handleInput}
             className="todo-input"
             placeholder="What do you need to do?"
           />
         </form>
         <ul className="todo-list">
-          <li className="todo-item-container">
+          {todos.map((todo,index)=> (
+          <li key={todo.id} className="todo-item-container" > 
             <div className="todo-item">
               <input type="checkbox" />
-              <span className="todo-item-label">{todos.title}</span>
+              <span className="todo-item-label">{todo.title}</span>
             </div>
-            <button className="x-button">
+            <button onClick={()=>deleteTodo(todo.id)} className="x-button">
               <svg
                 className="x-button-icon"
                 fill="none"
@@ -75,7 +103,9 @@ function App() {
               </svg>
             </button>
           </li>
+                       ))}
         </ul>
+       
         <div className="check-all-container">
           <div>
             <div className="button">Check All</div>
