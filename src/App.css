@@ -13,9 +13,10 @@ body {
 }
 
 .todo-app-container {
-  background-color: #1F2937;
+  padding:30px;
+  background: #1F2937;
   min-height: 100vh;
-  background: #f3f4f6;
+  /* background: #f3f4f6; */
 }
 
 .container {
