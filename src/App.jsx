@@ -79,14 +79,19 @@ function App() {
     });
     setTodos(updateTodos);
   }
+  
   function markAsEditing(id) {
-    const updateTodos=todos.map(todo=>{
-      if(todo.id===id){
-        todo.isEdititng=!todo.isEdititng;
+    const updatedTodos = todos.map(todo => {
+      if (todo.id === id) {
+        todo.isEditing = true;
       }
+
       return todo;
-    })
+    });
+
+    setTodos(updatedTodos);
   }
+
   function updateTodo(event, id) {
     const updatedTodos = todos.map(todo => {
       if (todo.id === id) {
